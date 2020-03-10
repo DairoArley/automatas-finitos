@@ -1,7 +1,7 @@
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import StepConnector from "@material-ui/core/StepConnector";
 import VideoLabelIcon from "@material-ui/icons/VideoLabel";
-import SettingsIcon from "@material-ui/icons/Settings";
+import InputIcon from '@material-ui/icons/Input';
 import GroupAddIcon from "@material-ui/icons/GroupAdd";
 import StepLabel from "@material-ui/core/StepLabel";
 import Stepper from "@material-ui/core/Stepper";
@@ -16,13 +16,13 @@ const ColorlibConnector = withStyles({
   active: {
     "& $line": {
       backgroundImage:
-        "linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)"
+      "linear-gradient(0deg, rgba(113,243,245,1) 5%, rgba(17,120,181,0.3841911764705882) 80%);"
     }
   },
   completed: {
     "& $line": {
       backgroundImage:
-        "linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)"
+        "linear-gradient(0deg, rgba(113,243,245,1) 5%, rgba(17,120,181,0.3841911764705882) 80%);"
     }
   },
   line: {
@@ -47,12 +47,12 @@ const useColorlibStepIconStyles = makeStyles({
   },
   active: {
     backgroundImage:
-      "linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)",
+      "linear-gradient(0deg, rgba(113,243,245,1) 5%, rgba(17,48,181,1) 80%)",
     boxShadow: "0 4px 10px 0 rgba(0,0,0,.25)"
   },
   completed: {
     backgroundImage:
-      "linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)"
+      "linear-gradient(0deg, rgba(113,243,245,1) 5%, rgba(17,48,181,1) 80%)"
   }
 });
 
@@ -61,7 +61,7 @@ function ColorlibStepIcon(props) {
   const { active, completed } = props;
 
   const icons = {
-    1: <SettingsIcon />,
+    1: <InputIcon />,
     2: <GroupAddIcon />,
     3: <VideoLabelIcon />
   };
