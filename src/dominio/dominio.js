@@ -24,4 +24,6 @@ const transicionesC = new Trancision("C", [new Estado("B", "0"),new Estado("C", 
 const transicionesD = new Trancision("D", [new Estado("D", "0"),new Estado("D", "1")], true );
 
 const automata = new AutomataFinito("A", [transicionesA, transicionesB, transicionesC,transicionesD], ["0","1"] );
-export default automata;
+const automataVacio = new AutomataFinito("A", [], [] );
+export default automataVacio;
+

@@ -5,8 +5,12 @@ import Header from "./componentes/Header";
 import Pasos from "./componentes/Pasos";
 import PasosInferior from "./componentes/PasosInferior";
 import Instructions from "./componentes/Instrucciones";
+import { BrowserRouter, Route, Switch, NavLink } from "react-router-dom";
 import automata from "./dominio/dominio";
 import AutomataFinitoTabla from "./componentes/AutomataFinitoTabla";
+import datos from "./database/datos";
+import Señuelo from "./componentes/Señuelo";
+import Navegacion from "./componentes/Navegacion";
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -15,23 +19,10 @@ const useStyles = makeStyles(theme => ({
     "& > *": {
       margin: theme.spacing(3),
       width: theme.spacing(100),
-      height: theme.spacing(45)
+      height: theme.spacing(30)
     }
   }
 }));
-
-const datos = [
-  [
-    "Ingresar el Automata Finito",
-    "Ingresar expresión regular",
-    "Validar ER en el AF"
-  ],
-  [
-    "En este paso usted deberá ingresar el automata finito que desea evaluar",
-    "En este paso usted deberá ingresar la expresión regular que desea evaluar en el actual automata",
-    "En este paso evaluaremos la expresion, Pertenece o no pertenece"
-  ]
-];
 
 function getSteps() {
   return datos[0];
@@ -45,6 +36,31 @@ export default function App() {
   const maxSteps = steps.length;
   const classes = useStyles();
 
+  const handleShow = () => {
+    switch (activeStep) {
+      case 0:
+        return <Instructions
+        style={{ justifyContent: "center" }}
+        titulo={"Intrucciones"}
+        instruccion={getStepContent(activeStep)}
+        severidad={"info"}
+      />
+      case 1:
+        return <AutomataFinitoTabla automata={automata}/>
+      case 2:
+        // code block
+        break;
+      case 3:
+        // code block
+        break;
+      case 4:
+        // code block
+        break;
+      default:
+      // code block
+    }
+  };
+
   const handleNext = () => {
     setActiveStep(prevActiveStep => prevActiveStep + 1);
   };
@@ -57,21 +73,20 @@ export default function App() {
     setActiveStep(0);
   };
   return (
-    <div>
+    <div style={{transform: "translate(-50% , -50%)"}}>
       <Header />
-      <Pasos activeStep={activeStep} steps={steps} maxSteps={maxSteps} />
+      <Pasos activeStep={activeStep} steps={steps} />
       <Instructions
-        style={{ justifyContent: "center", alignSelf: "center" }}
+        style={{ justifyContent: "center" }}
         titulo={"Intrucciones"}
         instruccion={getStepContent(activeStep)}
         severidad={"info"}
       />
       <Paper className={classes.paper} elevation={20}>
-        <AutomataFinitoTabla automata={automata} />
+        {handleShow()}
       </Paper>
       <PasosInferior
         activeStep={activeStep}
-        steps={steps}
         maxSteps={maxSteps}
         handleBack={handleBack}
         handleNext={handleNext}

@@ -1,10 +1,12 @@
 import { makeStyles, withStyles } from "@material-ui/core/styles";
 import StepConnector from "@material-ui/core/StepConnector";
-import VideoLabelIcon from "@material-ui/icons/VideoLabel";
+import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import InputIcon from '@material-ui/icons/Input';
-import GroupAddIcon from "@material-ui/icons/GroupAdd";
+import EmojiSymbolsIcon from '@material-ui/icons/EmojiSymbols';
+import PostAddIcon from '@material-ui/icons/PostAdd';
 import StepLabel from "@material-ui/core/StepLabel";
 import Stepper from "@material-ui/core/Stepper";
+import VisibilityIcon from '@material-ui/icons/Visibility';
 import Step from "@material-ui/core/Step";
 import React from "react";
 import clsx from "clsx";
@@ -62,8 +64,10 @@ function ColorlibStepIcon(props) {
 
   const icons = {
     1: <InputIcon />,
-    2: <GroupAddIcon />,
-    3: <VideoLabelIcon />
+    2: <VisibilityIcon/>,
+    3: <PostAddIcon />,
+    4: <EmojiSymbolsIcon/>,
+    5: <AllInclusiveIcon />
   };
 
   return (

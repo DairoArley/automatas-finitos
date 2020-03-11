@@ -10,8 +10,8 @@ export default function PasosInferior(props) {
   return (
     <MobileStepper
       steps={props.maxSteps}
-      position="static"
-      variant="dots"
+      position="bottom"
+      variant="progress"
       activeStep={props.activeStep}
       nextButton={
         <Button

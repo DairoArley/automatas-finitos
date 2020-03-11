@@ -20,6 +20,7 @@ import CloseIcon from "@material-ui/icons/Close";
 import StorageIcon from "@material-ui/icons/Storage";
 import DoneAllIcon from "@material-ui/icons/DoneAll";
 import DoubleArrowIcon from "@material-ui/icons/DoubleArrow";
+import TableFooter from '@material-ui/core/TableFooter';
 
 const useToolbarStyles = makeStyles(theme => ({
   root: {
@@ -119,6 +120,7 @@ export default function AutomataFinitoTabla(props) {
       <Paper className={classes.paper}>
         <TableContainer>
           <Table className={classes.table} size="small" stickyHeader={true}>
+          <caption>Se asume que el primer estado, es el estado Inicial</caption>
             <TableHead >
               <TableRow>
                 <TableCell align="center" style={{ backgroundColor: "#D3F0F7"}}>
@@ -190,6 +192,9 @@ export default function AutomataFinitoTabla(props) {
                 </TableRow>
               ))}
             </TableBody>
+            <TableFooter>
+              
+            </TableFooter>
           </Table>
         </TableContainer>
       </Paper>
