@@ -1,3 +1,4 @@
+// Automatas
 class AutomataFinito {
     constructor(estadoInicial, trancisiones, entradas) {
         this.estadoInicial = estadoInicial;
@@ -26,4 +27,7 @@ const transicionesD = new Trancision("D", [new Estado("D", "0"),new Estado("D", 
 const automata = new AutomataFinito("A", [transicionesA, transicionesB, transicionesC,transicionesD], ["0","1"] );
 const automataVacio = new AutomataFinito("A", [], [] );
 export default automataVacio;
+
+//Expresion Regular
+
 

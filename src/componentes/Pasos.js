@@ -3,7 +3,7 @@ import StepConnector from "@material-ui/core/StepConnector";
 import AllInclusiveIcon from '@material-ui/icons/AllInclusive';
 import InputIcon from '@material-ui/icons/Input';
 import EmojiSymbolsIcon from '@material-ui/icons/EmojiSymbols';
-import PostAddIcon from '@material-ui/icons/PostAdd';
+import BuildIcon from '@material-ui/icons/Build';
 import StepLabel from "@material-ui/core/StepLabel";
 import Stepper from "@material-ui/core/Stepper";
 import VisibilityIcon from '@material-ui/icons/Visibility';
@@ -64,8 +64,8 @@ function ColorlibStepIcon(props) {
 
   const icons = {
     1: <InputIcon />,
-    2: <VisibilityIcon/>,
-    3: <PostAddIcon />,
+    2: <BuildIcon />,
+    3: <VisibilityIcon/>,
     4: <EmojiSymbolsIcon/>,
     5: <AllInclusiveIcon />
   };

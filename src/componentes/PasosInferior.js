@@ -31,7 +31,7 @@ export default function PasosInferior(props) {
         <Button
           size="large"
           onClick={props.handleBack}
-          disabled={props.activeStep === 0}
+          disabled={props.activeStep < props.activeStep+1}
         >
           {theme.direction === "rtl" ? (
             <KeyboardArrowRight />

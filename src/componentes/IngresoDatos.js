@@ -1,54 +1,81 @@
-import React from 'react';
-import { makeStyles } from '@material-ui/core/styles';
+import React, {useState} from "react";
+import TextField from '@material-ui/core/TextField';
+import { makeStyles } from "@material-ui/core/styles";
+import Card from "@material-ui/core/Card";
+import CardActions from "@material-ui/core/CardActions";
+import CardContent from "@material-ui/core/CardContent";
+import Button from "@material-ui/core/Button";
+import Typography from "@material-ui/core/Typography";
+import EmojiSymbolsIcon from '@material-ui/icons/EmojiSymbols';
 import Chip from '@material-ui/core/Chip';
-import Paper from '@material-ui/core/Paper';
-import TagFacesIcon from '@material-ui/icons/TagFaces';
 
-const useStyles = makeStyles(theme => ({
+const useStyles = makeStyles({
   root: {
-    display: 'flex',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
-    padding: theme.spacing(0.5),
+    minWidth: 275,
+    maxHeight: 280,
   },
-  chip: {
-    margin: theme.spacing(0.5),
+  bullet: {
+    display: "inline-block",
+    margin: "0 2px",
+    transform: "scale(0.8)"
   },
-}));
+  pos: {
+    marginBottom: 12
+  }
+});
 
-export default function ChipsArray() {
+export default function IngresoDatos(props) {
   const classes = useStyles();
-  const [chipData, setChipData] = React.useState([
-    { key: 0, label: 'Angular' },
-    { key: 1, label: 'jQuery' },
-    { key: 2, label: 'Polymer' },
-    { key: 3, label: 'React' },
-    { key: 4, label: 'Vue.js' },
-  ]);
+  const [mostrarExpresion, setMostrarExpresion] = useState(false);
 
-  const handleDelete = chipToDelete => () => {
-    setChipData(chips => chips.filter(chip => chip.key !== chipToDelete.key));
-  };
+  const handleChange = (e) => {
+    props.mod(e.target.value);
+  }
+  const handleView = () => {
+    setMostrarExpresion(!mostrarExpresion);    
+  } 
 
   return (
-    <Paper className={classes.root}>
-      {chipData.map(data => {
-        let icon;
-
-        if (data.label === 'React') {
-          icon = <TagFacesIcon />;
-        }
-
-        return (
+    <Card className={classes.root} variant="outlined">
+      <CardContent>
+        <Typography variant="h5" component="h2">
+          Ingreso de la Expresión regular
+        </Typography>
+        <Typography className={classes.pos} color="textSecondary">
+          Tenga en cuenta que con los simbolos '|', '.', '*' y '+' se representa la Unión, 
+          Concatenación, Clausura y Clausura que no incluye secuencia nula, correspondientemente.
+        </Typography>
+        {
+          mostrarExpresion ?
           <Chip
-            key={data.key}
-            icon={icon}
-            label={data.label}
-            onDelete={data.label === 'React' ? undefined : handleDelete(data)}
-            className={classes.chip}
-          />
-        );
-      })}
-    </Paper>
+          icon={<EmojiSymbolsIcon/>}        
+          label={props.expresionRegular}
+          style={{justifyContent: "center", padding:"15px"}}    
+          clickable
+          size="medium"
+          color="primary"
+          onDelete={handleView}
+        />
+          :(
+          <TextField
+          label="Expresión regular"
+          style={{ margin: 8 }}
+          placeholder="Digite la expresion regular"
+          fullWidth
+          value = {props.expresionRegular}
+          onChange={handleChange}
+          margin="normal"
+          InputLabelProps={{
+            shrink: true
+          }}
+          variant="outlined"
+        />)}
+      </CardContent>
+      {mostrarExpresion? null :
+      <CardActions>
+        <Button size="medium" color="primary" onClick={handleView} >Guardar</Button>
+      </CardActions>
+      }
+    </Card>
   );
 }

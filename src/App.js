@@ -5,22 +5,17 @@ import Header from "./componentes/Header";
 import Pasos from "./componentes/Pasos";
 import PasosInferior from "./componentes/PasosInferior";
 import Instructions from "./componentes/Instrucciones";
-import { BrowserRouter, Route, Switch, NavLink } from "react-router-dom";
 import automata from "./dominio/dominio";
 import AutomataFinitoTabla from "./componentes/AutomataFinitoTabla";
 import datos from "./database/datos";
-import Señuelo from "./componentes/Señuelo";
-import Navegacion from "./componentes/Navegacion";
+import IngresoDatos from "./componentes/IngresoDatos";
+import Animacion from "./componentes/animacion/Animacion";
 
 const useStyles = makeStyles(theme => ({
   paper: {
-    display: "flex",
-    justifyContent: "center",
-    "& > *": {
-      margin: theme.spacing(3),
-      width: theme.spacing(100),
-      height: theme.spacing(30)
-    }
+    marginLeft: "auto",
+    marginRight: "auto",
+    display: "block"
   }
 }));
 
@@ -35,21 +30,16 @@ export default function App() {
   const steps = getSteps();
   const maxSteps = steps.length;
   const classes = useStyles();
+  const [expresionRegular, setExpresionregular] = React.useState("");
 
   const handleShow = () => {
     switch (activeStep) {
       case 0:
-        return <Instructions
-        style={{ justifyContent: "center" }}
-        titulo={"Intrucciones"}
-        instruccion={getStepContent(activeStep)}
-        severidad={"info"}
-      />
+        return <IngresoDatos er={expresionRegular} mod={setExpresionregular}/>;
       case 1:
-        return <AutomataFinitoTabla automata={automata}/>
+        return <Animacion/>;        
       case 2:
-        // code block
-        break;
+        return <AutomataFinitoTabla automata={automata} />
       case 3:
         // code block
         break;
@@ -73,18 +63,18 @@ export default function App() {
     setActiveStep(0);
   };
   return (
-    <div style={{transform: "translate(-50% , -50%)"}}>
+    <div style={{ display: "block" }}>
       <Header />
       <Pasos activeStep={activeStep} steps={steps} />
-      <Instructions
-        style={{ justifyContent: "center" }}
-        titulo={"Intrucciones"}
-        instruccion={getStepContent(activeStep)}
-        severidad={"info"}
-      />
-      <Paper className={classes.paper} elevation={20}>
+      <Paper className={classes.paper} elevation={5}>
+        <Instructions
+          titulo={"Intrucciones"}
+          instruccion={getStepContent(activeStep)}
+          severidad={"info"}
+        />
         {handleShow()}
       </Paper>
+
       <PasosInferior
         activeStep={activeStep}
         maxSteps={maxSteps}

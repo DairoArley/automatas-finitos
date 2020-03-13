@@ -1,16 +1,16 @@
 const datos = [
     [
-      "Datos iniciales del Automata Finito",
-      "Visualizar el Automata Finito",
-      "Ingresar la Expresión Regular",
-      "Validar ER en el AF",
+      "Ingreso de expresión regulares",
+      "Construir Automata Finito",
+      "Visualizar el autómata finito generado",
+      "Reconocimiento de una hilera de caracteres",
       "Probar un nuevo Automata Finito",
     ],
     [
-      "En este paso usted deberá ingresar los datos de entrada y los estados",
-      "En este paso usted puede validar los datos ingresados, y editarlos si desea",
-      "En este paso usted deberá ingresar la expresión regular que desea evaluar en el actual automata",
-      "En este paso evaluaremos la expresion, Pertenece o no pertenece",
+      "En este paso usted deberá ingresar la expresiones regular",
+      "En este paso usted debe esperar, este paso tiene efecto placebo con repecto a las acciones del usuario",
+      "En este paso se muestra el automata finito generado con la expresiòn regular {}",
+      "En este paso usted debe ingresar una hilera para reconocer, Pertenece o no pertenece",
       "En este paso usted puede decidir si ingresa otro Automata Finito o finaliza"
     ]
   ];
