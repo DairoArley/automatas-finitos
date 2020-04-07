@@ -37,7 +37,7 @@ export default function App() {
       case 0:
         return <IngresoDatos er={expresionRegular} mod={setExpresionregular}/>;
       case 1:
-        return <Animacion/>;        
+        return null;        
       case 2:
         return <AutomataFinitoTabla automata={automata} />
       case 3:

@@ -26,8 +26,6 @@ const transicionesD = new Trancision("D", [new Estado("D", "0"),new Estado("D", 
 
 const automata = new AutomataFinito("A", [transicionesA, transicionesB, transicionesC,transicionesD], ["0","1"] );
 const automataVacio = new AutomataFinito("A", [], [] );
-export default automataVacio;
+//export default automata;
 
 //Expresion Regular
-
-

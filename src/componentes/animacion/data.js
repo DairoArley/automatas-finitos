@@ -1,73 +1,53 @@
 export default [
     {
       css:
+        'url(https://cdn.pixabay.com/photo/2014/08/01/15/49/typewriter-407695_960_720.jpg)',
+      height: 150
+    },
+    {
+      css:
+        'url(https://cdn.pixabay.com/photo/2016/06/12/20/27/macro-1452987_960_720.jpg)',
+      height: 300
+    },
+    {
+      css:
         'url(https://cdn.pixabay.com/photo/2016/03/04/19/36/gears-1236578_960_720.jpg)',
-      height: 150
-    },
-    {
-      css:
-        'url(https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)',
       height: 300
     },
     {
       css:
-        'url(https://images.pexels.com/photos/911738/pexels-photo-911738.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)',
+        'url(https://cdn.pixabay.com/photo/2017/05/07/09/03/gear-2291916_960_720.jpg)',
       height: 300
     },
     {
       css:
-        'url(https://images.pexels.com/photos/358574/pexels-photo-358574.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)',
+        'url(https://image.shutterstock.com/image-photo/gas-turbine-compressor-stationfeed-on-600w-684282901.jpg)',
       height: 300
     },
     {
       css:
-        'url(https://images.pexels.com/photos/1738986/pexels-photo-1738986.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)',
+        'url(https://cdn.pixabay.com/photo/2019/11/25/07/31/movement-4651185_960_720.jpg)',
       height: 300
     },
     {
       css:
-        'url(https://images.pexels.com/photos/96381/pexels-photo-96381.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)',
-      height: 300
-    },
-    {
-      css:
-        'url(https://images.pexels.com/photos/1005644/pexels-photo-1005644.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)',
+        'url(https://cdn.pixabay.com/photo/2015/05/15/14/52/motor-768750_960_720.jpg)',
       height: 200
     },
     {
       css:
-        'url(https://images.pexels.com/photos/227675/pexels-photo-227675.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)',
+        'url(https://cdn.pixabay.com/photo/2014/08/22/09/40/mechanics-424130_960_720.jpg)',
       height: 300
     },
     {
       css:
-        'url(https://images.pexels.com/photos/325185/pexels-photo-325185.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)',
+        'url(https://cdn.pixabay.com/photo/2014/09/13/21/46/drill-444493_960_720.jpg)',
       height: 200
     },
     {
       css:
-        'url(https://images.pexels.com/photos/327482/pexels-photo-327482.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)',
+        'url(https://cdn.pixabay.com/photo/2018/11/04/20/21/harley-davidson-3794909_960_720.jpg)',
       height: 400
-    },
-    {
-      css:
-        'url(https://images.pexels.com/photos/988872/pexels-photo-988872.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)',
-      height: 200
-    },
-    {
-      css:
-        'url(https://images.pexels.com/photos/249074/pexels-photo-249074.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)',
-      height: 150
-    },
-    {
-      css:
-        'url(https://images.pexels.com/photos/310452/pexels-photo-310452.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)',
-      height: 400
-    },
-    {
-      css:
-        'url(https://images.pexels.com/photos/380337/pexels-photo-380337.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260)',
-      height: 200
-    }
+    }    
   ]
   
