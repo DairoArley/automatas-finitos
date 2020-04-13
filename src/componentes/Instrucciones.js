@@ -3,7 +3,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import MuiAlert from '@material-ui/lab/Alert';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
-import GTranslateIcon from '@material-ui/icons/GTranslate';
+import ColorLensIcon from '@material-ui/icons/ColorLens';
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -40,8 +40,8 @@ export default function Instrucciones(props) {
 
   return (
     <div className={classes.root}>
-      <Fab color="primary"  onClick={handleClick} className={classes.fab}>
-        <GTranslateIcon />
+      <Fab color="primary"  onMouseOver={handleClick} className={classes.fab}>
+        <ColorLensIcon/>
       </Fab>
       <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
         <Alert onClose={handleClose} severity={props.severidad}>

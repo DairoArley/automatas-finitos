@@ -1,3 +1,18 @@
+function validarParentesis(exp){
+    let cantidad = 0;
+    for (let i=0; i<exp.length; i++){
+        let token = exp[i];
+        
+        if ( token === '(' ) cantidad++;
+        if ( token === ')' ) cantidad--;
+    }
+    if (cantidad > 0){
+        return false;
+    } else if (cantidad < 0) {
+        return false
+    }
+    return true
+}
 function insertarOperadorExplicitoConcatenacion(exp) {
     let output = '';
 
@@ -12,7 +27,7 @@ function insertarOperadorExplicitoConcatenacion(exp) {
         if (i < exp.length - 1) {
             const lookahead = exp[i+1];
 
-            if(lookahead === '*' || lookahead === '|' || lookahead === ')') {
+            if(lookahead === '*' || lookahead === '|' || lookahead === ')' || lookahead === '+') {
                 continue;
             }
 
@@ -21,16 +36,16 @@ function insertarOperadorExplicitoConcatenacion(exp) {
     }
 
     return output;
-};
-
+} 
 function peek(stack) {
     return stack.length && stack[stack.length - 1];
 }
 
-const operatorPrecedence = {
+const precedenciaDeOperador = {
     '|': 0,
     '.': 1,
-    '*': 2
+    '*': 2,
+    '+': 2,
 }
 
 function aPosfijo(exp) {
@@ -38,12 +53,11 @@ function aPosfijo(exp) {
     const operatorStack = [];
 
     for (const token of exp) {
-        if (token === '.' || token === '|' || token === '*') {
+        if (token === '.' || token === '|' || token === '*' || token === '+') {
             while(operatorStack.length && peek(operatorStack) !== '('
-                  && operatorPrecedence[peek(operatorStack)] >= operatorPrecedence[token]) {
+                  && precedenciaDeOperador[peek(operatorStack)] >= precedenciaDeOperador[token]) {
                 output += operatorStack.pop();
             }
-
             operatorStack.push(token);
         } else if (token === '(' || token === ')') {
             if(token === '(') {
@@ -66,7 +80,7 @@ function aPosfijo(exp) {
     return output;
 }
 
-function createState(isEnd) {
+function crearEstado(isEnd) {
     return {
         isEnd,
         transition: {},
@@ -76,29 +90,31 @@ function createState(isEnd) {
 
 function addEpsilonTransition(from, to) {
     from.epsilonTransitions.push(to);
+    //from.epsilonTransitions.push({hacia: to, simbolo:"λ"});
 }
 
 function addTransition(from, to, symbol) {
+    //from.transition = {hacia: to, simbolo:symbol};
     from.transition[symbol] = to;
 }
 
 function fromEpsilon() {
-    const start = createState(false);
-    const end = createState(true);
+    const start = crearEstado(false);
+    const end = crearEstado(true);
     addEpsilonTransition(start, end);
     
     return { start, end };
 }
 
 function fromSymbol(symbol) {
-    const start = createState(false);
-    const end = createState(true);
+    const start = crearEstado(false);
+    const end = crearEstado(true);
     addTransition(start, end, symbol);
 
     return { start, end };
 }
 
-function concat(first, second) {
+function concatenar(first, second) {
     addEpsilonTransition(first.end, second.start);
     first.end.isEnd = false;
 
@@ -106,24 +122,40 @@ function concat(first, second) {
 }
 
 function union(first, second) {
-    const start = createState(false);
+    const start = crearEstado(false);
     addEpsilonTransition(start, first.start);
     addEpsilonTransition(start, second.start);
 
-    const end = createState(true);
-    addEpsilonTransition(first.end, end);
+    const preEnd = crearEstado(true);
+    addEpsilonTransition(first.end, preEnd);
     first.end.isEnd = false;
-    addEpsilonTransition(second.end, end);
+    addEpsilonTransition(second.end, preEnd);
     second.end.isEnd = false;
+    //
+    //const end = crearEstado(true);
+    //addEpsilonTransition(preEnd, end);
+    //
+    return { start, preEnd };
+}
+
+function clausura(nfa) {
+    const start = crearEstado(false);
+    const end = crearEstado(true);
+
+    addEpsilonTransition(start, end);
+    addEpsilonTransition(start, nfa.start);
+
+    addEpsilonTransition(nfa.end, end);
+    addEpsilonTransition(nfa.end, nfa.start);
+    nfa.end.isEnd = false;
 
     return { start, end };
 }
 
-function closure(nfa) {
-    const start = createState(false);
-    const end = createState(true);
+function clausuraSinNulo(nfa) {
+    const start = crearEstado(false);
+    const end = crearEstado(true);
 
-    addEpsilonTransition(start, end);
     addEpsilonTransition(start, nfa.start);
 
     addEpsilonTransition(nfa.end, end);
@@ -142,15 +174,17 @@ function toNFA(postfixExp) {
     
 	for (const token of postfixExp) {
 		if(token === '*') {
-   		    stack.push(closure(stack.pop()));
-   		} else if (token === '|') {
+   		    stack.push(clausura(stack.pop()));
+        }else if(token === '+'){
+            stack.push(clausuraSinNulo(stack.pop()));
+        }else if (token === '|') {
    		    const right = stack.pop();
    		    const left = stack.pop();
    		    stack.push(union(left, right));
    		} else if (token === '.') {
    		    const right = stack.pop();
    		    const left = stack.pop();
-   		    stack.push(concat(left, right));
+   		    stack.push(concatenar(left, right));
    		} else {
    		    stack.push(fromSymbol(token));
    		}
@@ -159,6 +193,33 @@ function toNFA(postfixExp) {
 	return stack.pop();
 }
 
+function cierreLambdaDe(state, visited) {
+    if (state.epsilonTransitions.length) {
+        for (const st of state.epsilonTransitions) {
+            if (!visited.find(vs => vs === st)) {
+                visited.push(st);
+                cierreLambdaDe(st, visited);
+            }
+        }
+    }
+}
+
+function cierreLambdaSet(estado, visitedRecorrido, todos) {
+    if (estado.epsilonTransitions.length) {
+        for (const st of estado.epsilonTransitions) {
+            if (!visitedRecorrido.find(vs => vs === st)) {
+                visitedRecorrido.push(st);
+                let visited = [].push(st);//Para cierre
+                cierreLambdaDe(st, visited)
+                todos.push(visited);
+                visited = [];
+                cierreLambdaSet(st, visitedRecorrido, todos);    
+            }
+        }
+    } else {
+        todos.push(estado);   
+    }
+}
 
 function addNextState(state, nextStates, visited) {
     if (state.epsilonTransitions.length) {
@@ -192,22 +253,35 @@ function search(nfa, word) {
     return currentStates.find(s => s.isEnd) ? true : false;
 }
 
+const valor = insertarOperadorExplicitoConcatenacion('1*');
+//console.log(valor);
+const valor2 = aPosfijo(valor);
+//console.log(valor2);
+const este = toNFA(valor2);
 
-/*function createMatcher(exp) {
-    const postfixExp = toPostfix(insertExplicitConcatOperator(exp));
-    const nfa = toNFA(postfixExp);
+const todos = [];
+cierreLambdaSet(este.start, [], todos );
+console.log(todos);
 
-    return (word) => search(nfa, word);
-}
+//const cierreLambda = [];
+//const visited = [];
+//cierreLambdaDe(este.start, cierreLambda, visited)
+//console.info(cierreLambda);
+//console.info(visited);
 
-const match = createMatcher('a*b');
-match(''); // false
-match('b'); // true
-match('ab'); // true*/
+//console.info(este.start.epsilonTransitions[0].transition);
+//const estesi = este.start.epsilonTransitions[0].transition;
 
-const postfixExp = aPosfijo(insertarOperadorExplicitoConcatenacion('(a|b)*a'));
+//console.log(Object.keys(estesi));
+/*console.info(search(este, ""));*/
 
-const nfa = toNFA(postfixExp);
+//const postfijo = aPosfijo('abc');
+//const nfa = toNFA(postfijo);
 
-console.info(postfixExp);
-
+module.exports = {
+    validarParentesis,
+    insertarOperadorExplicitoConcatenacion,
+    aPosfijo,
+    toNFA,
+    search
+};

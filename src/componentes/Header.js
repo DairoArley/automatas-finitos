@@ -11,13 +11,13 @@ const useStyles = makeStyles(theme => ({
   },
   toolbar: {
     minHeight: 60,
-    alignItems: 'flex-start',
+    alignItems: 'flex-center',
     paddingTop: theme.spacing(1),
     paddingBottom: theme.spacing(2),
   },
   title: {
     flexGrow: 1,
-    alignSelf: 'flex-end',
+    alignSelf: 'flex-center',
   },
 }));
 
@@ -29,7 +29,7 @@ export default function Header() {
       <AppBar position="static">
         <Toolbar className={classes.toolbar}>
           <Typography className={classes.title} variant="h5" noWrap>
-            EL TITULO
+            EXPRESIÓN REGULAR A AUTOMATA FINITO
           </Typography>
         </Toolbar>
       </AppBar>

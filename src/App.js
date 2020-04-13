@@ -1,15 +1,20 @@
 import React from "react";
 import Paper from "@material-ui/core/Paper";
+import Resultado from "./componentes/Resultado";
 import { makeStyles } from "@material-ui/core/styles";
 import Header from "./componentes/Header";
 import Pasos from "./componentes/Pasos";
 import PasosInferior from "./componentes/PasosInferior";
 import Instructions from "./componentes/Instrucciones";
-import automata from "./dominio/dominio";
 import AutomataFinitoTabla from "./componentes/AutomataFinitoTabla";
 import datos from "./database/datos";
 import IngresoDatos from "./componentes/IngresoDatos";
-import Animacion from "./componentes/animacion/Animacion";
+import {insertarOperadorExplicitoConcatenacion,
+  aPosfijo,
+  toNFA,
+  search} from "./dominio/automataNoDeterministico";
+import {AutomataFinito,
+  automata} from "./dominio/dominio"
 
 const useStyles = makeStyles(theme => ({
   paper: {
@@ -31,19 +36,20 @@ export default function App() {
   const maxSteps = steps.length;
   const classes = useStyles();
   const [expresionRegular, setExpresionregular] = React.useState("");
+  let nfa = null;
 
   const handleShow = () => {
     switch (activeStep) {
       case 0:
-        return <IngresoDatos er={expresionRegular} mod={setExpresionregular}/>;
+        return <IngresoDatos er={expresionRegular} mod={setExpresionregular} />;       
       case 1:
-        return null;        
-      case 2:
+        let expReg = insertarOperadorExplicitoConcatenacion(expresionRegular);
+        let posFijo = aPosfijo(expReg);
+        nfa = toNFA(posFijo);
         return <AutomataFinitoTabla automata={automata} />
+      case 2:
+        return <Resultado nfa={nfa} er={expresionRegular} search={search}/>
       case 3:
-        // code block
-        break;
-      case 4:
         // code block
         break;
       default:
